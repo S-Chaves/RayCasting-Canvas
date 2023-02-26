@@ -2,7 +2,7 @@ import Wall from "./Wall.js";
 import Light from "./Light.js";
 
 // Constants
-const WIDTH = 500;
+const WIDTH = 600;
 const HEIGHT = 500;
 const WALL_AMOUNT = 7;
 
@@ -72,7 +72,7 @@ function draw() {
   if (canvas.getContext) {
     const ctx = canvas.getContext("2d");
     // Clear canvas
-    ctx.clearRect(0, 0, 1000, HEIGHT);
+    ctx.clearRect(0, 0, 1200, HEIGHT);
     ctx.strokeStyle = "rgb(250, 250, 250)";
     ctx.lineWidth = 2;
 
