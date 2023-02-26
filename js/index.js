@@ -20,12 +20,14 @@ onmousemove = e => {
 // Create walls
 const walls = [];
 for (let i = 0; i < WALL_AMOUNT; i++) {
-  walls.push(new Wall(randomPos(WIDTH), randomPos(HEIGHT), randomPos(WIDTH), randomPos(HEIGHT)));
+  walls.push(new Wall(randomPos(WIDTH), randomPos(HEIGHT),
+    randomPos(WIDTH), randomPos(HEIGHT),
+    `${randomPos(200) + 50},${randomPos(200) + 50},${randomPos(200) + 50}`));
 }
-walls.push(new Wall(0, 0, WIDTH, 0));
-walls.push(new Wall(0, 0, 0, HEIGHT));
-walls.push(new Wall(WIDTH, HEIGHT, WIDTH, 0));
-walls.push(new Wall(WIDTH, HEIGHT, 0, HEIGHT));
+walls.push(new Wall(0, 0, WIDTH, 0, "200,0,0"));
+walls.push(new Wall(0, 0, 0, HEIGHT, "1,200,0"));
+walls.push(new Wall(WIDTH, HEIGHT, WIDTH, 0, "1,200,0"));
+walls.push(new Wall(WIDTH, HEIGHT, 0, HEIGHT, "200,0,0"));
 
 const light = new Light();
 
@@ -81,20 +83,22 @@ function draw() {
     for (let wall of walls) {
       wall.show(ctx);
     }
+    // Check for collisions with walls
+    light.checkCollision(ctx);
     light.show(ctx);
 
     const heights = light.cast(walls, ctx);
     const wid = WIDTH / heights.length;
 
     for (let i = 0; i < heights.length; i++) {
-      const clr = map(heights[i], 0, WIDTH, 250, 5);
-      const h = map(HEIGHT / heights[i], 0, 20, 0, HEIGHT);
+      const clr = map(heights[i].height, 0, WIDTH, 1, 0);
+      const h = map(HEIGHT / heights[i].height, 0, 20, 0, HEIGHT);
       const drawStart = -h / 2 + HEIGHT / 2;
 
       ctx.beginPath();
 
-      ctx.fillStyle = `rgba(${clr},${clr},${clr})`;
-      ctx.fillRect(i * wid + WIDTH, drawStart, wid + 1, h);
+      ctx.fillStyle = `rgba(${heights[i].clr},${clr})`;
+      ctx.fillRect(i * wid + WIDTH, drawStart, wid + 2, h);
       ctx.stroke();
     }
 
