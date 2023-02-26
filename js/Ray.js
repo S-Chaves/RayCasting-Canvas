@@ -8,7 +8,7 @@ class Ray {
       pos.y + 1 * Math.sin(Math.PI * angle / 180.0));
   }
 
-  updateDir(x, y) {
+  updateDir() {
     this.dir.move(this.pos.x + 1 * Math.cos(Math.PI * this.angle / 180.0),
       this.pos.y + 1 * Math.sin(Math.PI * this.angle / 180.0));
   }
